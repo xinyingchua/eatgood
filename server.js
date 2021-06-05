@@ -1,12 +1,24 @@
-const express = require('express');
+// =======================================
+//              DEPENDANCIES
+// =======================================
 
+require('dotenv').config()
+const express = require('express');
+const mongoose = require('mongoose')
 const app = express();
 const port = 3000;
-// const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`
+const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`
 
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
+
+// set view engine
 app.set('view engine', 'ejs')
+
+// set middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'))
 
 
 // =======================================
@@ -18,7 +30,7 @@ app.get('/', (req, res) => {
     res.render('recipes/index')
   })
 
-// // new
+// new
 // app.get('/products/new', productController.newForm)
 
 // show
@@ -63,9 +75,9 @@ app.get('/show', (req, res) => {
 // =======================================
 //              LISTENER
 // =======================================
-// mongoose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true } )
-//   .then(response => {
+mongoose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true } )
+  .then(response => {
     app.listen(port, () => {
-      console.log(`Biscoff Bakery app listening on port: ${port}`)
+      console.log(`Eatgood app listening on port: ${port}`)
     })
-//   })
+  })
