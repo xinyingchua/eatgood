@@ -2,13 +2,21 @@
 
 <div class="container ">
 
-  <div class="card-group row-cols-4 mx-auto ">
+  <a href="/recipes/" class="btn btn-light"><i class="far fa-plus-square"></i></a>
 
-    <div class="col mb-3">
-    <div class="card card-link" style="width: 18rem;"><a href ="/show">
-        <img class="card-img-top" src="/assets/37359a22c1460b5c861864eaf4b389ad.jpg" alt="Card image cap"></a>
+   <div class="row card-group" data-masonry='{"percentPosition": true }'>
+
+
+    <% if (recipes.length !== 0) { %> 
+
+      <% recipes.forEach((element, index) => { %>
+
+    <div class="col-sm-4 col-md-3 py-3">
+
+    <div class="card card-link" style="width: 18rem;"><a href ="/recipes/<%= element.slug %> ">
+        <img class="card-img-top" src="<%= element.image %>" alt="Card image cap"></a>
         <div class="card-body">
-          <h7 class="card-title">Teriyaki Chicken with Avocado Don</h7>
+          <h7 class="card-title"><%= element.name %></h7>
         </div>
         <div class="card-footer">
           <small class="text-muted">Last updated 3 mins ago</small>
@@ -16,55 +24,17 @@
       </div>
     </div>
 
-    <div class="col">
-      <div class="card card-link" style="width: 18rem;"><a href ="/show">
-          <img class="card-img-top" src="https://i.pinimg.com/564x/d9/f8/ff/d9f8ff846b0e17b231a096dab0011fca.jpg" alt="Card image cap"></a>
-          <div class="card-body">
-            <h7 class="card-title">Teriyaki Chicken with Avocado Don</h7>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      
+    <% }); %>
 
-    <div class="col">
-      <div class="card card-link" style="width: 18rem;"><a href ="/show">
-        <img class="card-img-top" src="/assets/37359a22c1460b5c861864eaf4b389ad.jpg" alt="Card image cap"></a>
-        <div class="card-body">
-          <h7 class="card-title">Teriyaki Chicken with Avocado Don</h7>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
+    <% } else { %>
 
-    <div class="col">
-      <div class="card card-link" style="width: 18rem;"><a href ="/show">
-        <img class="card-img-top" src="https://i.pinimg.com/564x/69/03/05/6903055fb3d98fad5a21c7db45451fcb.jpg" alt="Card image cap"></a>
-        <div class="card-body">
-          <h7 class="card-title">Teriyaki Chicken with Avocado Don</h7>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
+        <p>No product is available</p>
 
-    <div class="col">
-      <div class="card card-link" style="width: 18rem;"><a href ="/show">
-        <img class="card-img-top" src="https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2020/01/Healthy-Eggs-Benedict-9.jpg" alt="Card image cap"></a>
-        <div class="card-body">
-          <h7 class="card-title">Healthy Eggs Benedict</h7>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
+    <% } %>
+
+  </div>
+
 </div>
-</div
+
 
 <%- include('../partials/foot') %>

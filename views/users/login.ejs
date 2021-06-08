@@ -1,0 +1,40 @@
+<%- include('../partials/head') %>
+
+
+<div class="container d-flex justify-content-center">
+
+
+    <div class="card mb-3" style="min-width: 1200px; max-width:1600px">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <img src="https://i.pinimg.com/564x/c1/48/5e/c1485edc0b1c63a2dc38de47b3f84d66.jpg" style= "object-fit: cover;" alt="Card image cap">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <img src ='/assets/eatgood-logo.png' width=200px class="rounded-circle"></a>
+            <form method="POST" action="/users/login">
+                <div class="mb-3">
+                    <h3 class="card-title">Log in to eatgood.</h3>
+
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-light">Login</button>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+<%- include('../partials/foot') %>
+
+

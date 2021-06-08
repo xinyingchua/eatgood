@@ -1,0 +1,39 @@
+<%- include('../partials/head') %>
+
+<div class="container d-flex justify-content-center">
+
+    <div class="card mb-3" style="min-width: 800px; max-width:900px" >
+      <div class="row g-0">
+        <div class="col-md-6">
+          <img src="<%=recipe.image%>" style= "width: 400px ;height:500px; object-fit: cover;" alt="Card image cap">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h3 class="card-title">Edit</h3>
+            <form method="POST" action="/recipes/<%= recipe.slug %>?_method=PATCH">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="name" name="name" value="<%= recipe.name %>">
+                </div>
+                <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <input type="text" class="form-control" id="category" name="category" value="<%= recipe.category %>">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image URL</label>
+                    <input type="text" class="form-control" id="image" name="image" value="<%= recipe.image %>">
+                </div>
+                <button type="submit" class="btn btn-light">Update Recipe</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+
+<%- include('../partials/foot') %>
+
