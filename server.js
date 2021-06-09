@@ -34,14 +34,14 @@ app.use(methodOverride('_method'))
   app.get('/recipes/', recipesController.index)
 
 // new
-// app.get('/products/new', productController.newForm)
+app.get('/recipes/new', recipesController.newForm)
 
 // show
 app.get('/recipes/:slug', recipesController.show)
 
 
-// // create
-// app.post('/products', productController.create)
+// create
+app.post('/recipes', recipesController.create)
 
 // edit
 app.get('/recipes/:slug/edit', recipesController.editForm)

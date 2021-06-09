@@ -19,6 +19,10 @@ module.exports = {
         })
     },
 
+    newForm: async (req, res) => {
+        res.render('recipes/new')
+ 
+    },
 
     show: (req, res) => {
         let recipe = {}
@@ -48,6 +52,25 @@ module.exports = {
             })
 
     },
+    create: async (req, res) => {
+        let slug = _.kebabCase(req.body.name)
+
+        RecipeModel.create({
+            name: req.body.name,
+            category: req.body.category,
+            image: req.body.image,
+            slug: slug
+        })
+        .then(createRespond => {
+            res.redirect('/recipes')
+        })
+        .catch(err => {
+            console.log(err)
+            res.redirect('/recipes/new')
+        })
+
+
+    },
     editForm: (req, res) => {
         RecipeModel.findOne({slug: req.params.slug}) 
         .then(item => {
@@ -67,7 +90,7 @@ module.exports = {
             $set: {
                 name: req.body.name,
                 category: req.body.category,
-                image: req.body,image,
+                image: req.body.image,
                 slug: newSlug
                  }
             })
