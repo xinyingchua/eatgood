@@ -1,11 +1,10 @@
-// =======================================
-//              DEPENDANCIES
-// =======================================
+// DEPENDANCIES //
 
 require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
+const session = require('express-session')
 const recipesController = require('./controllers/recipes_controller')
 const userController = require('./controllers/user_controller')
 const app = express();
@@ -15,20 +14,28 @@ const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${
 mongoose.set('useFindAndModify', false)
 mongoose.set('useCreateIndex', true)
 
-// set view engine
+// SETTING VIEW ENGINE //
 app.set('view engine', 'ejs')
 
-// set middleware
+// SETTING MIDDLEWARE //
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
+
 // accept spoofed methods based on _method query parameter
 app.use(methodOverride('_method'))
 
+// set up middleware to support session
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: true } // STOP HERE TO BE CONTINUED 10 JUNE // 
+}))
 
-// =======================================
-//              ROUTES
-// =======================================
+// ROUTES //
+
 
 // index
   app.get('/recipes/', recipesController.index)
@@ -64,9 +71,14 @@ app.delete('/recipes/:slug', recipesController.delete)
 
 app.get('/users/register', userController.registerForm)
 
+app.post('/users/register', userController.registerNewUser)
+
+
 // app.post('/users/register', guestOnlyMiddleware,  userController.registerUser)
 
 app.get('/users/login', userController.loginForm)
+
+app.post('/users/login', userController.loginUser)
 
 // app.post('/users/login', guestOnlyMiddleware, userController.loginUser)
 
@@ -75,9 +87,8 @@ app.get('/users/login', userController.loginForm)
 // app.post('/users/logout', authenticatedOnlyMiddleware, userController.logout)
 
 
-// =======================================
-//              LISTENER
-// =======================================
+//  LISTENER // 
+
 mongoose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true } )
   .then(response => {
     app.listen(port, () => {
