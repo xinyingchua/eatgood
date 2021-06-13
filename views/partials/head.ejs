@@ -42,19 +42,30 @@
 
 
             </li>
+            <% if (user) { %>
             <li class="nav-item">
               <a class="nav-link" href="#">Personal</a>
             </li>
+            <% } %>
           </ul>
         </div>
 
+   
           <ul class="d-flex navbar-nav">
+            <% if (user) { %>
+            <li class="nav-item">
+              <form method="post" action="/users/logout">
+                <button type="submit" class="btn btn-link nav-link">Logout</button>
+              </form>
+            </li>
+            <% } else { %>
             <li class="nav-item">
               <a class="nav-link" href="/users/register">Register</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/users/login">Login</a>
             </li>
+            <% } %>
           </ul>
   
       </div>

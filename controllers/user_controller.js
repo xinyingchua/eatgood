@@ -81,7 +81,15 @@ module.exports = {
             res.redirect('/users/login')
             return
         }
+        req.session.user = user
+        // console.log(user.first_name)
         res.redirect('/users/dashboard')
-    }
-
+    },
+    dashboard: (req, res) => {
+        res.render('users/dashboard')
+    },
+    logout: (req, res) => {
+        req.session.destroy()
+        res.redirect('/recipes')
+    },
 }

@@ -12,9 +12,11 @@
           <div class="card-body">
             <h3 class="card-title"><%=recipe.name%></h3>
             <h6 class="category">Category: <%=recipe.category%></h6>
-            <p class="recipe-description">Had an amazing day, whipped up someting for <%=recipe.category%></p>
-            <div class="rate-edit-review" style="margin-bottom: 0;">
+            <p class="recipe-description" style="margin-top:50px">Had an amazing day, whipped up someting for <%=recipe.category%></p>
+            <div class="rate-edit-review" style="margin-top:50px">
             <a href="/recipes/<%= recipe.slug %>/ratings/new" class="btn btn-light">Rate</a>
+
+
             <a href="/recipes/<%= recipe.slug %>/edit" class="btn btn-light">Edit</a>
             <form method="post" style="margin: 0 auto" action="/recipes/<%= recipe.slug %>?_method=DELETE">
             <button type="submit" class="btn btn-danger">Delete</a>
@@ -24,8 +26,46 @@
         </div>
       </div>
     </div>
-
-
 </div>
+
+            <div class="container">
+
+              <form method="POST" action="/recipes/<%= recipe.slug %>/ratings">
+                  <div class="mb-3">
+                      <label for="rating" class="form-label">Rating</label>
+                      <select name="rating" id="rating" class="form-select">
+                          <option value="" selected>Open this select menu</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                      </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment" class="form-label">Comment (optional)</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Give Rating</button>
+              </form>
+
+
+
+              <section id="product-ratings" class="mt-5">
+                <ul class="list-group">
+                  <% ratings.forEach(element => { %>
+                    <li class="list-group-item">
+                      <p>Posted By: <%= element.rating_user %> </p>
+                      <p>Rating Score: <%= element.rating%> </p>
+                      <p>Comment: <%= element.comment %></p>
+                      <p>Rated At: <%= element.created_at %> </p>
+                    </li>
+                  <% }); %>
+                </ul>
+              </section>
+            </div>
+
+
+          </div>
 
 <%- include('../partials/foot') %>

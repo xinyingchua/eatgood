@@ -7,6 +7,13 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const recipesController = require('./controllers/recipes_controller')
 const userController = require('./controllers/user_controller')
+const productRatingController = require('./controllers/product_ratings_controller')
+const { setUserVarMiddleware } = require('./middlewares/auth-middleware')
+const {
+  authenticatedOnly: authenticatedOnlyMiddleware,
+  guestOnly: guestOnlyMiddleware,
+} = require('./middlewares/auth-middleware')
+
 const app = express();
 const port = 3000;
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`
@@ -29,10 +36,14 @@ app.use(methodOverride('_method'))
 // set up middleware to support session
 app.use(session({
   secret: process.env.SESSION_SECRET,
+  name: 'user_session',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true } // STOP HERE TO BE CONTINUED 10 JUNE // 
+  cookie: { path: '/', secure: false, maxAge: 3600000 } // 3600000ms = 3600s = 60mins, cookie expires in an hour
 }))
+
+// setting middleware to ensure global template user variable
+app.use(setUserVarMiddleware)
 
 // ROUTES //
 
@@ -59,32 +70,25 @@ app.patch('/recipes/:slug', recipesController.update)
 // delete
 app.delete('/recipes/:slug', recipesController.delete)
 
-// // product rating routes
+// product rating routes
 
-// app.get('/products/:slug/ratings/new', productRatingController.newForm)
-
-// app.post('/products/:slug/ratings', productRatingController.create)
+app.post('/recipes/:slug/ratings', productRatingController.create)
 
 // users
 
-// app.get('/users/register', guestOnlyMiddleware, userController.registerForm)
 
-app.get('/users/register', userController.registerForm)
+app.get('/users/register', guestOnlyMiddleware, userController.registerForm)
 
-app.post('/users/register', userController.registerNewUser)
-
-
-// app.post('/users/register', guestOnlyMiddleware,  userController.registerUser)
+app.post('/users/register', guestOnlyMiddleware, userController.registerNewUser)
 
 app.get('/users/login', userController.loginForm)
 
 app.post('/users/login', userController.loginUser)
 
-// app.post('/users/login', guestOnlyMiddleware, userController.loginUser)
+app.get('/users/dashboard', authenticatedOnlyMiddleware, userController.dashboard)
 
-// app.get('/users/dashboard', authenticatedOnlyMiddleware, userController.dashboard)
+app.post('/users/logout', authenticatedOnlyMiddleware, userController.logout)
 
-// app.post('/users/logout', authenticatedOnlyMiddleware, userController.logout)
 
 
 //  LISTENER // 

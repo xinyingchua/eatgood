@@ -1,5 +1,7 @@
 const _ = require('lodash')
 const { RecipeModel } = require('../models/recipes')
+const {ProductRatingModel} = require('../models/product_ratings')
+const { UserModel } = require('../models/user')
 
 
 module.exports = {
@@ -9,6 +11,7 @@ module.exports = {
 
         try {
             recipes = await RecipeModel.find()
+            user = await UserModel.find()
         } catch (err) {
             res.statusCode(500)
             return 'server error'
@@ -24,8 +27,25 @@ module.exports = {
  
     },
 
-    show: (req, res) => {
+    show: async(req, res) => {
         let recipe = {}
+        // let user = null
+
+        
+        // UserModel.findOne({ email: req.body.email})
+        // .then(user => {
+        //     user = req.user.session
+        // })
+        // .catch(err => {
+        //     console.log(err)
+        //     res.redirect('/recipes')
+        // })
+        
+        // // user = user.first_name
+        // console.log(user)
+        
+
+    //    let user = await UserModel.findOne({ _id: req.session.user })
 
         RecipeModel.findOne({ slug: req.params.slug })
             .then(item => {
@@ -38,13 +58,15 @@ module.exports = {
                 recipe = item
 
                 // get product ratings from DB
-                // return ProductRatingModel.find({ product_id: item._id }).sort({ created_at: -1 });
+                return ProductRatingModel.find({ product_id: item._id }).sort({ created_at: -1 });
             })
             .then(ratings => {
                 res.render('recipes/show', {
                     recipe: recipe,
-                    // ratings: ratings
+                    ratings: ratings
+                    // user: user
                 })
+                console.log(user)
             })
             .catch(err => {
                 console.log(err)
@@ -59,7 +81,8 @@ module.exports = {
             name: req.body.name,
             category: req.body.category,
             image: req.body.image,
-            slug: slug
+            slug: slug,
+
         })
         .then(createRespond => {
             res.redirect('/recipes')
