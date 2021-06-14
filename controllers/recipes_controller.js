@@ -48,7 +48,7 @@ module.exports = {
     //    let user = await UserModel.findOne({ _id: req.session.user })
 
         RecipeModel.findOne({ slug: req.params.slug })
-            .then(item => {
+            .then(async item => {
                 // if item is not found, redirect to homepage
                 if (!item) {
                     res.redirect('/recipes')
@@ -57,16 +57,21 @@ module.exports = {
 
                 recipe = item
 
+                // TEST 14 JUNE POPULATE // 
+                let test = await ProductRatingModel.findOne({ product_id: item._id, user_id: '60c22ba20713960d224d4732',}).populate('user');
+                console.log(test)
+
                 // get product ratings from DB
-                return ProductRatingModel.find({ product_id: item._id }).sort({ created_at: -1 });
+                return ProductRatingModel.find({ product_id: item._id }).sort({ created_at: -1 }).populate('user');
             })
             .then(ratings => {
+                console.log(ratings)
                 res.render('recipes/show', {
                     recipe: recipe,
                     ratings: ratings
                     // user: user
                 })
-                console.log(user)
+                // console.log(user)
             })
             .catch(err => {
                 console.log(err)

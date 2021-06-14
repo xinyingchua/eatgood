@@ -24,7 +24,7 @@ module.exports = {
                 return ProductRatingModel.create({
                     product_id: recipeResponse._id,
                     rating: rating,
-                    rating_user: user.first_name,
+                    user_id: user._id,
                     comment: req.body.comment,
                     created_at: timestampNow,
                     updated_at: timestampNow,
