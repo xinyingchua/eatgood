@@ -10,14 +10,16 @@ const productRatingSchema = new mongoose.Schema({
 })
 
 // to have an option to load user model when we use product rating model
+// use virtual if you have collection that is dependent on another
 productRatingSchema.virtual('user', {
   ref: 'User',
   localField: 'user_id', // property that we use to search for users
   foreignField: '_id',
   justOne: true // mongo to return one result 
-  
 
 })
+
+productRatingSchema.set('toObject', {virtuals:true}) // whenever product rating model is called, virtual will show
 
 
 const ProductRatingModel = mongoose.model('ProductRating', productRatingSchema)
