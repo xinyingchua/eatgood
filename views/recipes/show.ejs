@@ -15,9 +15,8 @@
             <p>Posted By: <%= recipe.user.first_name %> </p>
             <p class="recipe-description" style="margin-top:50px">Had an amazing day, whipped up someting for <%=recipe.category%></p>
             <div class="rate-edit-review" style="margin-top:50px">
-            <a href="/recipes/<%= recipe.slug %>/ratings/new" class="btn btn-light">Rate</a>
-
             <% if (user) { %>
+            <a href="/recipes/<%= recipe.slug %>/ratings/new" class="btn btn-light">Rate</a>
             <a href="/recipes/<%= recipe.slug %>/edit" class="btn btn-light">Edit</a>
             <form method="post" style="margin: 0 auto" action="/recipes/<%= recipe.slug %>?_method=DELETE">
             <button type="submit" class="btn btn-danger">Delete</a>

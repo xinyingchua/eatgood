@@ -25,5 +25,14 @@ module.exports = {
         }
 
         next()
+    },
+    userAuthentication: (req, res, next) => {
+        (req.session && req.session.user) 
+
+        // if (req.session && req.session.user) {
+        //     res.locals.user = req.session.user
+        // }
+
+        next()
     }
 }
