@@ -11,6 +11,7 @@
         <div class="col-md-6">
           <div class="card-body">
             <h3 class="card-title"><%=recipe.name%></h3>
+            <p>Posted By: <%= recipe.user.first_name %> </p>
             <h6 class="category">Category: <%=recipe.category%></h6>
             <p class="recipe-description" style="margin-top:50px">Had an amazing day, whipped up someting for <%=recipe.category%></p>
             <div class="rate-edit-review" style="margin-top:50px">

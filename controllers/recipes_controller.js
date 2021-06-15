@@ -27,65 +27,64 @@ module.exports = {
  
     },
 
-    show: async(req, res) => {
-        let recipe = {}
-        // let user = null
+    show: async (req, res) => {
 
-        
-        // UserModel.findOne({ email: req.body.email})
-        // .then(user => {
-        //     user = req.user.session
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        //     res.redirect('/recipes')
-        // })
-        
-        // // user = user.first_name
-        // console.log(user)
-        
+            try {
+                const recipe = await RecipeModel.findOne({ slug: req.params.slug }).populate('user');
+                if (!recipe) {
+                    throw new Error(`Could not find recipe with slug: ${req.params.slug}`);
+                }
+                const ratings = await ProductRatingModel.find({ product_id: recipe._id }).sort({ created_at: -1 }).populate('user');
+                res.render('recipes/show', { recipe, ratings });
+            } catch (err) {
+                res.redirect('/recipes');
+            }
+     },
+    
 
     //    let user = await UserModel.findOne({ _id: req.session.user })
 
-        RecipeModel.findOne({ slug: req.params.slug })
-            .then(async item => {
-                // if item is not found, redirect to homepage
-                if (!item) {
-                    res.redirect('/recipes')
-                    return
-                }
+        // RecipeModel.findOne({ slug: req.params.slug })
+        //     .then(async item => {
+        //         // if item is not found, redirect to homepage
+        //         if (!item) {
+        //             res.redirect('/recipes')
+        //             return
+        //         }
 
-                recipe = item
+        //         recipe = item
 
-                // TEST 14 JUNE POPULATE // 
-                // let test = await ProductRatingModel.findOne({ product_id: item._id, user_id: '60c22ba20713960d224d4732',}).populate('user');
-                // console.log(test)
+        //         // TEST 14 JUNE POPULATE // 
+        //         // let test = await ProductRatingModel.findOne({ product_id: item._id, user_id: '60c22ba20713960d224d4732',}).populate('user');
+        //         // console.log(test)
 
-                // get product ratings from DB
-                return ProductRatingModel.find({ product_id: item._id }).sort({ created_at: -1 }).populate('user');
-            })
-            .then(ratings => {
-                // console.log(ratings)
-                res.render('recipes/show', {
-                    recipe: recipe,
-                    ratings: ratings
-                    // user: user
-                })
-                // console.log(user)
-            })
-            .catch(err => {
-                console.log(err)
-                res.redirect('/recipes')
-            })
+        //         // get product ratings from DB
+        //         return ProductRatingModel.find({ product_id: item._id }).sort({ created_at: -1 }).populate('user');
+        //     })
+        //     .then(ratings => {
+        //         // console.log(ratings)
+        //         res.render('recipes/show', {
+        //             recipe: recipe,
+        //             ratings: ratings
+        //             // user: user
+        //         })
+        //         // console.log(user)
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //         res.redirect('/recipes')
+        //     })
 
-    },
+    // },
     create: async (req, res) => {
         let slug = _.kebabCase(req.body.name)
+        let user = req.session.user
 
         RecipeModel.create({
             name: req.body.name,
             category: req.body.category,
             image: req.body.image,
+            user_id: user._id,
             slug: slug,
 
         })
