@@ -42,50 +42,19 @@ module.exports = {
      },
     
 
-    //    let user = await UserModel.findOne({ _id: req.session.user })
-
-        // RecipeModel.findOne({ slug: req.params.slug })
-        //     .then(async item => {
-        //         // if item is not found, redirect to homepage
-        //         if (!item) {
-        //             res.redirect('/recipes')
-        //             return
-        //         }
-
-        //         recipe = item
-
-        //         // TEST 14 JUNE POPULATE // 
-        //         // let test = await ProductRatingModel.findOne({ product_id: item._id, user_id: '60c22ba20713960d224d4732',}).populate('user');
-        //         // console.log(test)
-
-        //         // get product ratings from DB
-        //         return ProductRatingModel.find({ product_id: item._id }).sort({ created_at: -1 }).populate('user');
-        //     })
-        //     .then(ratings => {
-        //         // console.log(ratings)
-        //         res.render('recipes/show', {
-        //             recipe: recipe,
-        //             ratings: ratings
-        //             // user: user
-        //         })
-        //         // console.log(user)
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //         res.redirect('/recipes')
-        //     })
-
-    // },
     create: async (req, res) => {
         let slug = _.kebabCase(req.body.name)
         let user = req.session.user
 
+        const timestampNow = moment().utc()
         RecipeModel.create({
             name: req.body.name,
             category: req.body.category,
             image: req.body.image,
             user_id: user._id,
             slug: slug,
+            created_at: timestampNow,
+            updated_at: timestampNow
 
         })
         .then(createRespond => {

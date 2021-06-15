@@ -10,27 +10,28 @@
         </div>
         <div class="col-md-6">
           <div class="card-body">
-            <h3 class="card-title"><%=recipe.name%></h3>
+            <h2 class="card-title"><%=recipe.name%></h2>
+            <h5 class="category">Category: <%=recipe.category%></h5>
             <p>Posted By: <%= recipe.user.first_name %> </p>
-            <h6 class="category">Category: <%=recipe.category%></h6>
             <p class="recipe-description" style="margin-top:50px">Had an amazing day, whipped up someting for <%=recipe.category%></p>
             <div class="rate-edit-review" style="margin-top:50px">
             <a href="/recipes/<%= recipe.slug %>/ratings/new" class="btn btn-light">Rate</a>
 
-
+            <% if (user) { %>
             <a href="/recipes/<%= recipe.slug %>/edit" class="btn btn-light">Edit</a>
             <form method="post" style="margin: 0 auto" action="/recipes/<%= recipe.slug %>?_method=DELETE">
             <button type="submit" class="btn btn-danger">Delete</a>
             </form>
+            <% } %>
             </div>
           </div>
         </div>
       </div>
     </div>
 </div>
-
+           
             <div class="container">
-
+              <% if (user) { %>
               <form method="POST" action="/recipes/<%= recipe.slug %>/ratings">
                   <div class="mb-3">
                       <label for="rating" class="form-label">Rating</label>
@@ -43,13 +44,15 @@
                           <option value="5">5</option>
                       </select>
                   </div>
+
+                 
                   <div class="mb-3">
                     <label for="comment" class="form-label">Comment (optional)</label>
                     <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                   </div>
                   <button type="submit" class="btn btn-primary">Give Rating</button>
               </form>
-
+              <% } %>
 
 
               <section id="product-ratings" class="mt-5">
@@ -68,5 +71,6 @@
 
 
           </div>
+          
 
 <%- include('../partials/foot') %>

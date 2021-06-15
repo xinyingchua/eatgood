@@ -1,4 +1,6 @@
 const { UserModel} = require('../models/user')
+const { RecipeModel } = require('../models/recipes')
+const {ProductRatingModel} = require('../models/product_ratings')
 const moment = require('moment')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -85,8 +87,21 @@ module.exports = {
         // console.log(user.first_name)
         res.redirect('/users/dashboard')
     },
-    dashboard: (req, res) => {
-        res.render('users/dashboard')
+    dashboard: async (req, res) => {
+
+        let user = req.session.user
+
+        try {
+            const recipes = await RecipeModel.find({ user_id: user._id }).populate('user');
+            res.render('users/dashboard', { recipes, user});
+            // recipes = await RecipeModel.find()
+            // user = await UserModel.find()
+            
+        } catch (err) {
+            res.redirect('/recipes');
+        }
+
+
     },
     logout: (req, res) => {
         req.session.destroy()
