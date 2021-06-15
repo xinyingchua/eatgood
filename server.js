@@ -47,6 +47,9 @@ app.use(setUserVarMiddleware)
 
 // ROUTES //
 
+app.get('/', (req,res) => {
+  res.redirect('/recipes')
+})
 
 // index
   app.get('/recipes/', recipesController.index)
