@@ -1,8 +1,10 @@
 <%- include('../partials/head') %>
 
 <div class="container">
-  <a href="/recipes/new" class="btn btn-light" style= "margin-left: 5%;"><i class="far fa-plus-square"></i> Add New</a>
-
+  <h2 style= "text-align: left;">Explore, Invent, Reimagine Healthy Recipes</h2>
+  <% if (user) { %>
+  <a href="/recipes/new" class="btn btn-light" style= "text-align: left; margin-bottom: -50px"><i class="far fa-plus-square"></i> Add New Post</a>
+  <% } %>
     <% if (recipes.length !== 0) { %>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-sm-2 row-cols-lg-4 gx-5 gy-5 m-4 " data-masonry='{"percentPosition": true }'>
@@ -22,9 +24,6 @@
           <div class="card-body">
             <h7 class="card-title"><%= element.name %></h7>
           </div>
-          <!-- <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago </small>
-          </div> -->
         </div>
       </div>
         <% }); %>

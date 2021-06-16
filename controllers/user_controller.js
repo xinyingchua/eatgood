@@ -1,32 +1,41 @@
 const { UserModel} = require('../models/user')
 const { RecipeModel } = require('../models/recipes')
-const {ProductRatingModel} = require('../models/product_ratings')
 const moment = require('moment')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
 module.exports = {
 
-    registerForm: (req, res) => {
+    registerForm: async (req, res) => {
 
-        res.render('users/register')
+        const messages = await req.consumeFlash('error')
+
+        res.render('users/register', {
+            messages: messages
+        })
 
     },
 
-    loginForm: (req, res) => {
+    loginForm: async (req, res) => {
+        const messages = await req.consumeFlash('error')
 
-        res.render('users/login')
+        res.render('users/login', {
+            messages: messages
+        })
 
     },
 
     registerNewUser: async (req, res) => {
+
         // validate user's login
         if (!req.body.email) {
+            await req.flash('error', 'Email Fields must not be empty');
             res.redirect('/users/register')
             return
         }
         // 1. validate email login and pw
         if (req.body.password !== req.body.password_confirm) {
+            await req.flash('error', 'Password does not match');
             res.redirect('/users/register')
             return
         }
@@ -41,6 +50,7 @@ module.exports = {
         }
 
         if(user) { // if user exists in database 
+        await req.flash('error', 'This email is already registered. Try logging in instead.');
         res.redirect('/users/register')
         } 
         const timestampNow = moment().utc()
@@ -74,12 +84,24 @@ module.exports = {
             res.redirect('/users/register')
             return
         }
+        if(! req.body.email) {
+            await req.flash('error', 'Email fields must not be empty ');
+            res.redirect('/users/login')
+            return
+        }
+        if(!req.body.password) {
+            await req.flash('error', 'Password fields must not be empty ');
+            res.redirect('/users/login')
+            return
+        }
         if(!user) {
+            await req.flash('error', 'This email is not registered, please create an account.');
             res.redirect('/users/register')
             return
         }
         const validatedPassword = await bcrypt.compare(req.body.password, user.hash)
         if(!validatedPassword){
+            await req.flash('error', 'The password you entered is incorrect. Please try again.');
             res.redirect('/users/login')
             return
         }

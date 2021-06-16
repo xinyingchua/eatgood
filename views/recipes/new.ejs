@@ -10,25 +10,36 @@
         <div class="col-md-6">
           <div class="card-body">
             <h3 class="card-title">Create New</h3>
+
+            <% if (messages.length > 0) { %>
+              <div class="alert alert-danger" role="alert">
+                <ul>
+                  <% messages.forEach(msg => { %>
+                    <li><%= msg %></li>
+                  <% }) %>
+                </ul>
+              </div>
+            <% } %>
+
             <form method="POST" action="/recipes">
                 <div class="mb-3">
-                  <label for="name" class="form-label">Add a Recipe Name</label>
+                  <label for="name" class="form-label">Add a Recipe Name*</label>
                   <input type="text" class="form-control" id="name" name="name" value="" >
                 </div>
                 <div class="mb-3">
-                  <label for="category" class="form-label">Category</label>
+                  <label for="category" class="form-label">Category*</label>
                   <select name="category" id="category" class="form-select">
                     <option value="" selected>Choose Category</option>
-                    <option value="lunchdinner">Lunch/ Dinner</option>
-                    <option value="dessert">Dessert</option>
+                    <option value="Lunch/ Dinner">Lunch/ Dinner</option>
+                    <option value="Dessert">Dessert</option>
                 </select>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Write a caption...</label>
+                    <label for="description" class="form-label">Recipe</label>
                     <input type="text" class="form-control" id="description" name="description">
                   </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image URL</label>
+                    <label for="image" class="form-label">Image URL*</label>
                     <input type="text" class="form-control" id="image" name="image">
                 </div>
                 <button type="submit" class="btn btn-light">Create</button>

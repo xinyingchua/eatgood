@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const moment = require('moment')
 const { RecipeModel } = require('../models/recipes')
 const {ProductRatingModel} = require('../models/product_ratings')
 const { UserModel } = require('../models/user')
@@ -23,7 +24,11 @@ module.exports = {
     },
 
     newForm: async (req, res) => {
-        res.render('recipes/new')
+        const messages = await req.consumeFlash('error')
+
+        res.render('recipes/new', {
+            messages: messages
+        })
  
     },
 
@@ -43,16 +48,28 @@ module.exports = {
     
 
     create: async (req, res) => {
+        // fields input validation
+        if (!req.body.name || !req.body.image) {
+            await req.flash('error', 'Name / URL Fields must not be empty');
+    
+            res.redirect('/recipes/new')
+
+            return
+
+        }
+
         let slug = _.kebabCase(req.body.name)
         let user = req.session.user
 
         const timestampNow = moment().utc()
+
         RecipeModel.create({
             name: req.body.name,
             category: req.body.category,
             image: req.body.image,
             user_id: user._id,
             slug: slug,
+            description: req.body.description,
             created_at: timestampNow,
             updated_at: timestampNow
 
@@ -87,6 +104,7 @@ module.exports = {
                 name: req.body.name,
                 category: req.body.category,
                 image: req.body.image,
+                description: req.body.description,
                 slug: newSlug
                  }
             })

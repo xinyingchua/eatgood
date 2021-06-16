@@ -15,10 +15,23 @@
                   <label for="name" class="form-label">Name</label>
                   <input type="text" class="form-control" id="name" name="name" value="<%= recipe.name %>">
                 </div>
-                <div class="mb-3">
-                  <label for="category" class="form-label">Category</label>
-                  <input type="text" class="form-control" id="category" name="category" value="<%= recipe.category %>">
+
+                <div class="mb-3 ">
+
+                  <label for="category" class="form-label">Category*</label>
+                  <select name="category" id="category" class="form-select">
+                    <option value="" selected><%= recipe.category %></option>
+                    <option value="Lunch/ Dinner">Lunch/ Dinner</option>
+                    <option value="Dessert">Dessert</option>
+                  </select>
                 </div>
+
+                <div class="mb-3">
+                  <label for="description" class="form-label">Caption</label>
+                  <textarea class="form-control" id="description" name="description" value="<%= recipe.description %>">
+               </textarea> </div>
+
+
                 <div class="mb-3">
                     <label for="image" class="form-label">Image URL</label>
                     <input type="text" class="form-control" id="image" name="image" value="<%= recipe.image %>">

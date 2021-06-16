@@ -12,6 +12,17 @@
         <div class="col-md-6">
           <div class="card-body">
             <img src ='/assets/eatgood-logo.png' width=200px class="rounded-circle"></a>
+
+            <% if (messages.length > 0) { %>
+              <div class="alert alert-danger" role="alert">
+                <ul>
+                  <% messages.forEach(msg => { %>
+                    <li><%= msg %></li>
+                  <% }) %>
+                </ul>
+              </div>
+            <% } %>
+
             <form method="POST" action="/users/register">
               <h3 class="card-title">Create your account</h3><br>
               <div class="mb-3">
@@ -31,7 +42,8 @@
                 <input type="text" class="form-control" id="first_name" name="first_name">
               </div>
               <button type="submit" class="btn btn-light">Sign me up!</button>
-          </form>
+          </form><br>
+          <h6">Already have an account? <a href ="/users/login"style="color:  grey">Log In </a></h6><br>
       
           </div>
         </div>

@@ -1,5 +1,6 @@
 <%- include('../partials/head') %>
 
+
 <div class="container d-flex justify-content-center">
 
 
@@ -13,7 +14,9 @@
             <h2 class="card-title"><%=recipe.name%></h2>
             <h5 class="category">Category: <%=recipe.category%></h5>
             <p>Posted By: <%= recipe.user.first_name %> </p>
-            <p class="recipe-description" style="margin-top:50px">Had an amazing day, whipped up someting for <%=recipe.category%></p>
+
+
+            <p class="recipe-description"><%=recipe.description %></p>
             <div class="rate-edit-review" style="margin-top:50px">
             <% if (user) { %>
             <a href="/recipes/<%= recipe.slug %>/ratings/new" class="btn btn-light">Rate</a>
@@ -29,7 +32,7 @@
     </div>
 </div>
            
-            <div class="container">
+            <div class="container" style="min-width: 800px; max-width:900px" >
               <% if (user) { %>
               <form method="POST" action="/recipes/<%= recipe.slug %>/ratings">
                   <div class="mb-3">
@@ -53,6 +56,9 @@
               </form>
               <% } %>
 
+
+
+          
 
               <section id="product-ratings" class="mt-5">
                 <ul class="list-group">
