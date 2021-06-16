@@ -14,15 +14,14 @@
             <h2 class="card-title"><%=recipe.name%></h2>
             <h5 class="category">Category: <%=recipe.category%></h5>
             <p>Posted By: <%= recipe.user.first_name %> </p>
-
-
             <p class="recipe-description"><%=recipe.description %></p>
             <div class="rate-edit-review" style="margin-top:50px">
             <% if (user) { %>
-            <a href="/recipes/<%= recipe.slug %>/ratings/new" class="btn btn-light">Rate</a>
-            <a href="/recipes/<%= recipe.slug %>/edit" class="btn btn-light">Edit</a>
+              <!-- <a class="list-group-item list-group-item-action" href="#product-ratings">Reviews & Ratings</a> -->
+
+            <a href="/recipes/<%= recipe.slug %>/edit" class="btn btn-light mt-3">Edit</a>
             <form method="post" style="margin: 0 auto" action="/recipes/<%= recipe.slug %>?_method=DELETE">
-            <button type="submit" class="btn btn-danger">Delete</a>
+            <button type="submit" class="btn btn-danger mt-3">Delete</a>
             </form>
             <% } %>
             </div>
@@ -32,11 +31,32 @@
     </div>
 </div>
            
-            <div class="container" style="min-width: 800px; max-width:900px" >
+
+<div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+
+
+
+            <div class="container" id="review" style="min-width: 800px; max-width:900px" >
+
+              <a href="#review"class="btn btn-light mt-3" style="background-color: #d1ecb2; text-align: center;";>Add Review</a>
+
+              <section id="product-ratings" class="mt-5">
+                <ul class="list-group">
+                  <% ratings.forEach(element => { %>
+                    <li class="list-group-item">
+                      <p>Posted By: <%= element.user.first_name %> </p>
+                      <p>Rating Score: <%= element.rating%> </p>
+                      <p>Comment: <%= element.comment %></p>
+                      <p>Rated At: <%= element.created_at %> </p>
+                    </li>
+                  <% }); %>
+                </ul>
+              </section>
+
               <% if (user) { %>
               <form method="POST" action="/recipes/<%= recipe.slug %>/ratings">
                   <div class="mb-3">
-                      <label for="rating" class="form-label">Rating</label>
+                      <h4><label for="rating" class="form-label mt-5">Reviews & Ratings</label></h4>
                       <select name="rating" id="rating" class="form-select">
                           <option value="" selected>Open this select menu</option>
                           <option value="1">1</option>
@@ -52,26 +72,12 @@
                     <label for="comment" class="form-label">Comment (optional)</label>
                     <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                   </div>
-                  <button type="submit" class="btn btn-primary">Give Rating</button>
+                  <button type="submit" class="btn btn-light" style = "background-color: #d1ecb2">Give Rating</button>
               </form>
               <% } %>
 
 
 
-          
-
-              <section id="product-ratings" class="mt-5">
-                <ul class="list-group">
-                  <% ratings.forEach(element => { %>
-                    <li class="list-group-item">
-                      <p>Posted By: <%= element.user.first_name %> </p>
-                      <p>Rating Score: <%= element.rating%> </p>
-                      <p>Comment: <%= element.comment %></p>
-                      <p>Rated At: <%= element.created_at %> </p>
-                    </li>
-                  <% }); %>
-                </ul>
-              </section>
             </div>
 
 
