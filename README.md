@@ -9,6 +9,35 @@ You can find inspiration on what to cook for your meals and eating clean does no
 <li> 3 models with all 7 RESTful routes and full CRUD</li>
 <li> MVC file structure: Models, Views, Controllers </li>
 
+
+<br />
+
+<h2> Restful Routes</h2>
+
+| **URL** | **HTTP Verb** |  **Action**|
+|------------|-------------|------------|
+| /recipes        | GET       | index  
+| /recipes/new        | GET       | new  
+| /recipes/:slug       | GET      | show
+| /recipes/    | POST       | create 
+| /recipes/:slug/edit     | GET       | edit       
+|/recipes/:slug    |PATCH        | update
+|/recipes/:slug    |DELETE        | destroy
+|/users/dashboard      |GET        | dashboard    
+|/recipes/:slug/ratings    |POST        | create new rating & review   
+|/users/register   |GET        | show register page
+|/users/register   |POST        | register new user
+|/users/login |GET        | show login page
+|/users/login |POST        | log in user
+|/users/logout |POST        | log out user
+
+<br />
+
+![alt text](https://github.com/xinyingchua/eatgood/public/index.png)
+<br />
+
+
+
 <h2> Approach Taken</h2>
 <li> Brainstorm</li>
 <li> Design wireframes on how the app should work</li>
