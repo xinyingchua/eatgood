@@ -40,10 +40,10 @@ You can find inspiration on what to cook for your meals and eating clean does no
 |/users/logout |POST        | log out user
 
 <br />
-
-<img src="public/assets/index.png" width="500">
 <br />
-<img src="public/assets/register.png" width="500">
+
+<h2>Index</h2>
+<img src="public/assets/index.png" width="700">
 <br />
 
 
