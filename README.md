@@ -4,10 +4,18 @@
 <a href = "https://eat-good.herokuapp.com/recipes">eatgood.</a> is a full-stack application for like minded people to come together, share and try healthy recipes. 
 You can find inspiration on what to cook for your meals and eating clean does not have to be boring anymore 
 
-<h2> Technologies</h2>
-<li> Node.js, Mongoose, Express and EJS</li>
+<h2> Technologies / Dependencies </h2>
 <li> 3 models with all 7 RESTful routes and full CRUD</li>
 <li> MVC file structure: Models, Views, Controllers </li>
+<li> Node.js, Mongoose, Express and EJS</li>
+<li> Bcrpyt: Hash Generation</li>
+<li> Dotenv</li>
+<li> Express-session</li>
+<li> Express-flash-message</li>
+<li> Lodash</li>
+<li> Method-Override</li>
+<li> Moment</li>
+
 
 
 <br />
@@ -33,7 +41,9 @@ You can find inspiration on what to cook for your meals and eating clean does no
 
 <br />
 
-![alt text](https://github.com/xinyingchua/eatgood/public/index.png)
+<img src="public/assets/index.png" width="500">
+<br />
+<img src="public/assets/register.png" width="500">
 <br />
 
 
@@ -46,6 +56,8 @@ You can find inspiration on what to cook for your meals and eating clean does no
 <li> Work on Models - Schema, virtual</li>
 <li> Create Controllers for Recipes, Recipes Ratings, User </li>
 <li> Deploy application to Heroku</li>
+
+<br />
 
 <h2> Unsolved Problems</h2>
 <li> Application is not mobile responsive</li>
