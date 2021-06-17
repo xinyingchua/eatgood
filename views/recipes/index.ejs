@@ -1,10 +1,12 @@
 <%- include('../partials/head') %>
 
 <div class="container">
-  <h2 style= "text-align: left;">Explore, Invent, Reimagine Healthy Recipes</h2>
+  <h2 style= "text-align: center; font-family: 'Amatic SC', cursive;font-size: 50px;">Explore, Invent, Reimagine Healthy Recipes</h2>
   <% if (user) { %>
-  <a href="/recipes/new" class="btn btn-light" style= "text-align: left; margin-bottom: -50px"><i class="far fa-plus-square"></i> Add New Post</a>
+    <div class="d-grid gap-2 col-2 mx-auto">
+  <a href="/recipes/new" class="btn btn-light " style= "text-align: center; font-family: 'Amatic SC', cursive; font-size: 20px; background-color: #d1ecb2; "><i class="far fa-plus-square"></i>   Add New Post</a>
   <% } %>
+</div>
     <% if (recipes.length !== 0) { %>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-sm-2 row-cols-lg-4 gx-5 gy-5 m-4 " data-masonry='{"percentPosition": true }'>

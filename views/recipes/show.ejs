@@ -18,8 +18,10 @@
             <div class="rate-edit-review" style="margin-top:50px">
             <% if (user) { %>
               <!-- <a class="list-group-item list-group-item-action" href="#product-ratings">Reviews & Ratings</a> -->
+            <a href="#seereview"class="btn btn-light mt-3" style="background-color: #d1ecb2; text-align: center;";>See Reviews</a>
+            <a href="#addreview"class="btn btn-light mt-3" style="background-color: #d1ecb2; text-align: center;";>Add Review</a>
 
-            <a href="/recipes/<%= recipe.slug %>/edit" class="btn btn-light mt-3">Edit</a>
+            <a href="/recipes/<%= recipe.slug %>/edit" class="btn btn-light mt-3"style="background-color: #d1ecb2; text-align: center;">Edit</a>
             <form method="post" style="margin: 0 auto" action="/recipes/<%= recipe.slug %>?_method=DELETE">
             <button type="submit" class="btn btn-danger mt-3">Delete</a>
             </form>
@@ -35,12 +37,29 @@
 <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
 
 
+  <div class="container" id = "method" style="width: 850px; max-width:900px" >
+  <section id="method" class="mt-5">
+    <ul class="list-group">
+        <li class="list-group-item" id="method">
+          <h4>METHOD</h4>
+          <ol>
+            <li>Place chickpeas in a medium saucepan and cover with cold water. Bring to the boil over high heat, reduce to medium and simmer for 40-45 minutes until cooked. Keep warm.</li>
+            <li>Preheat oven to 180°C. Place Lebanese bread on a baking tray, drizzle with olive oil and sprinkle with extra za’atar. Bake for 10-12 minutes until golden and crisp.</li>
+            <li>For the yoghurt dressing, place yoghurt, za’atar, garlic, sumac and lemon in a bowl. Season to taste and mix to combine.</li>
+            <li>For the pomegranate dressing, place all the ingredients in a bowl, season to taste and stir to combine.</li>
+            <li>Preheat a chargrill pan or barbecue to high. Drizzle silverbeet with extra oil, season and chargrill for 4-5 minutes until wilted and a little charred. Roughly chop and place in a bowl with chickpeas and herbs. Drizzle over pomegranate dressing, season and toss to combine. </li>
+            <li>Place pita on a serving plate, spoon over yoghurt dressing and layer with silverbeet salad. Scatter over pine nuts and smoked trout to serve.</li>
+          </ol>
+        </li>
+    </ul>
+  </section>
+</div>
 
-            <div class="container" id="review" style="min-width: 800px; max-width:900px" >
+            <div class="container" id="seereview" style="width: 850px; max-width:900px" >
 
-              <a href="#review"class="btn btn-light mt-3" style="background-color: #d1ecb2; text-align: center;";>Add Review</a>
 
-              <section id="product-ratings" class="mt-5">
+              <h4><label for="rating" class="form-label mt-5">Reviews by foodies:</label></h4>
+              <section id="product-ratings" class="mt-4">
                 <ul class="list-group">
                   <% ratings.forEach(element => { %>
                     <li class="list-group-item">
@@ -57,7 +76,7 @@
               <form method="POST" action="/recipes/<%= recipe.slug %>/ratings">
                   <div class="mb-3">
                       <h4><label for="rating" class="form-label mt-5">Reviews & Ratings</label></h4>
-                      <select name="rating" id="rating" class="form-select">
+                      <select name="rating" id="addreview" class="form-select">
                           <option value="" selected>Open this select menu</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
@@ -69,7 +88,7 @@
 
                  
                   <div class="mb-3">
-                    <label for="comment" class="form-label">Comment (optional)</label>
+                    <label for="comment" class="form-label" id="addreview">Comment (optional)</label>
                     <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                   </div>
                   <button type="submit" class="btn btn-light" style = "background-color: #d1ecb2">Give Rating</button>
@@ -81,7 +100,6 @@
             </div>
 
 
-          </div>
           
 
 <%- include('../partials/foot') %>
